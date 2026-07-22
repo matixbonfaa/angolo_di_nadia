@@ -6,6 +6,7 @@ import DemoBanner from './components/DemoBanner.jsx'
 import Header from './components/Header.jsx'
 import MobileBar from './components/MobileBar.jsx'
 import Hero from './sections/Hero.jsx'
+import Servizi from './sections/Servizi.jsx'
 import { flags } from './data/content.js'
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
       {/* pb-24 su mobile per non finire sotto la barra fissa in basso */}
       <main className="pb-24 md:pb-0">
         <Hero />
+        <Servizi />
       </main>
 
       <MobileBar />
