@@ -18,7 +18,7 @@ function genera404() {
 
 // https://vite.dev/config/
 export default defineConfig({
-  // Sottocartella del sito su GitHub Pages: https://<utente>.github.io/langolo-di-nadia/
-  base: '/langolo-di-nadia/',
+  // Sottocartella del sito su GitHub Pages: https://<utente>.github.io/angolo_di_nadia/
+  base: '/angolo_di_nadia/',
   plugins: [react(), tailwindcss(), genera404()],
 })
