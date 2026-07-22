@@ -7,6 +7,7 @@ import Logo from './Logo.jsx'
 import { IconaInstagram, IconaFacebook } from './icons.jsx'
 import { attivita, navigazione, footer } from '../data/content.js'
 import { buildTelUrl } from '../lib/links.js'
+import { asset } from '../lib/asset.js'
 
 function Footer() {
   const linkTelefono = buildTelUrl(attivita.telefonoTel)
@@ -31,7 +32,7 @@ function Footer() {
             {navigazione.map((item) => (
               <li key={item.ancora}>
                 <a
-                  href={`/${item.ancora}`}
+                  href={asset(item.ancora)}
                   className="text-base text-bianco transition-colors duration-150 hover:text-fucsia"
                 >
                   {item.etichetta}

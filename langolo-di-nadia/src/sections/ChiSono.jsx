@@ -3,6 +3,7 @@
 
 import Rivela from '../components/Rivela.jsx'
 import { chiSono } from '../data/content.js'
+import { asset } from '../lib/asset.js'
 
 function ChiSono() {
   return (
@@ -22,7 +23,7 @@ function ChiSono() {
         {/* Ritratto */}
         <Rivela className="order-1 md:order-2" delay={120}>
           <img
-            src={chiSono.immagine}
+            src={asset(chiSono.immagine)}
             alt={chiSono.immagineAlt}
             width={900}
             height={1100}

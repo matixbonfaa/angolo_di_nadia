@@ -9,6 +9,7 @@ import Button from './Button.jsx'
 import { IconaWhatsapp, IconaMenu, IconaChiudi } from './icons.jsx'
 import { attivita, navigazione, cta } from '../data/content.js'
 import { buildWhatsAppUrl } from '../lib/links.js'
+import { asset } from '../lib/asset.js'
 
 function Header() {
   const [apertoMenu, setApertoMenu] = useState(false)
@@ -40,7 +41,7 @@ function Header() {
             {navigazione.map((item) => (
               <li key={item.ancora}>
                 <a
-                  href={`/${item.ancora}`}
+                  href={asset(item.ancora)}
                   className="group relative text-base text-nero transition-colors duration-150 hover:text-fucsia"
                 >
                   {item.etichetta}
@@ -88,7 +89,7 @@ function Header() {
             {navigazione.map((item) => (
               <li key={item.ancora}>
                 <a
-                  href={`/${item.ancora}`}
+                  href={asset(item.ancora)}
                   className="block border-b border-grigio-chiaro py-3 text-lg text-nero last:border-b-0"
                   onClick={() => setApertoMenu(false)}
                 >

@@ -2,6 +2,7 @@
 // I valori arrivano da content.js (placeholder pronti da compilare).
 
 import { attivita, seo } from '../data/content.js'
+import { assetAssoluto } from '../lib/asset.js'
 
 // Giorni in ordine Lun..Dom, coerente con attivita.orari, verso schema.org.
 const GIORNI_SCHEMA = [
@@ -36,7 +37,7 @@ function JsonLd() {
     '@type': 'HairSalon',
     '@id': seo.urlSito,
     name: attivita.nome,
-    image: `${seo.urlSito}${seo.ogImage}`,
+    image: assetAssoluto(seo.ogImage),
     url: seo.urlSito,
     telephone: attivita.telefonoTel,
     email: attivita.email,

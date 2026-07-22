@@ -2,9 +2,11 @@
 // <title> e <meta> resi qui vengono spostati automaticamente nel <head>.
 
 import { seo as seoDefault } from '../data/content.js'
+import { assetAssoluto } from '../lib/asset.js'
 
 function Seo({ titolo, descrizione, immagine, url }) {
-  const img = immagine ?? `${seoDefault.urlSito}${seoDefault.ogImage}`
+  // og:image assoluto e base-aware (funziona sotto la sottocartella di Pages).
+  const img = immagine ?? assetAssoluto(seoDefault.ogImage)
   const link = url ?? seoDefault.urlSito
 
   return (

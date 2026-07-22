@@ -5,6 +5,10 @@ import Section from '../components/Section.jsx'
 import Lightbox from '../components/Lightbox.jsx'
 import Rivela from '../components/Rivela.jsx'
 import { galleryIntro, gallery } from '../data/content.js'
+import { asset } from '../lib/asset.js'
+
+// Percorsi immagini resi base-aware una volta sola (miniature + lightbox).
+const immagini = gallery.map((img) => ({ ...img, src: asset(img.src) }))
 
 function Gallery() {
   const [indice, setIndice] = useState(null)
@@ -12,7 +16,7 @@ function Gallery() {
   const apri = (i) => setIndice(i)
   const chiudi = () => setIndice(null)
   const vai = (delta) =>
-    setIndice((i) => (i + delta + gallery.length) % gallery.length)
+    setIndice((i) => (i + delta + immagini.length) % immagini.length)
 
   return (
     <Section
@@ -21,7 +25,7 @@ function Gallery() {
       sottotitolo={galleryIntro.sottotitolo}
     >
       <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
-        {gallery.map((img, i) => (
+        {immagini.map((img, i) => (
           <Rivela as="li" key={img.src} delay={(i % 3) * 80}>
             <button
               type="button"
@@ -44,7 +48,7 @@ function Gallery() {
 
       {indice !== null && (
         <Lightbox
-          immagini={gallery}
+          immagini={immagini}
           indice={indice}
           onChiudi={chiudi}
           onVai={vai}
