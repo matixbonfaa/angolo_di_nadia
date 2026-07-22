@@ -18,6 +18,12 @@ concurrency:
   group: pages
   cancel-in-progress: false
 
+# Il progetto sta nella sottocartella langolo-di-nadia/ (la root del repo è
+# angolo_di_nadia/). I comandi npm girano quindi in quella cartella.
+defaults:
+  run:
+    working-directory: langolo-di-nadia
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -30,6 +36,7 @@ jobs:
         with:
           node-version: 20
           cache: npm
+          cache-dependency-path: langolo-di-nadia/package-lock.json
 
       - name: Installa dipendenze
         run: npm ci
@@ -43,7 +50,7 @@ jobs:
       - name: Carica artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: langolo-di-nadia/dist
 
   deploy:
     needs: build
