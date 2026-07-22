@@ -246,6 +246,9 @@ export const contattiIntro = {
 export const footer = {
   // Frase breve sotto il logo.
   descrizione: 'Parrucchiere a Meano, Trento. Su appuntamento.',
+  navTitolo: 'Naviga',
+  contattiTitolo: 'Contatti',
+  socialTitolo: 'Seguici',
   partitaIvaLabel: 'P.IVA',
   // Link alle pagine legali (route interne).
   legali: [
@@ -255,6 +258,74 @@ export const footer = {
   copyright: `© ${new Date().getFullYear()} L’angolo di Nadia. Tutti i diritti riservati.`,
   // Credito facoltativo, rimovibile.
   credito: 'Sito dimostrativo.',
+}
+
+// --- Pagine legali (PLACEHOLDER da far revisionare) -------------------------
+// Testi di esempio: NON sono un parere legale. Vanno adattati alla situazione
+// reale (dati del titolare, strumenti usati, cookie effettivamente installati).
+export const paginelegali = {
+  privacy: {
+    titolo: 'Privacy Policy',
+    aggiornamento: 'Ultimo aggiornamento: gennaio 2025',
+    seo: {
+      titolo: "Privacy Policy — L'angolo di Nadia",
+      descrizione:
+        "Informativa sul trattamento dei dati personali di L'angolo di Nadia.",
+    },
+    sezioni: [
+      {
+        titolo: 'Titolare del trattamento',
+        testo:
+          'Il titolare del trattamento dei dati è L’angolo di Nadia, con sede in Via di Meano, 128 — 38121 Meano (Trento). Per qualsiasi richiesta è possibile scrivere a info@langolodinadia.it.',
+      },
+      {
+        titolo: 'Dati raccolti',
+        testo:
+          'Questo sito è puramente informativo e non prevede moduli di registrazione o prenotazione. I contatti avvengono tramite telefono o WhatsApp: in quel caso vengono trattati solo i dati che scegli di comunicare (nome e numero) al fine di gestire l’appuntamento.',
+      },
+      {
+        titolo: 'Finalità e base giuridica',
+        testo:
+          'I dati eventualmente comunicati sono utilizzati esclusivamente per rispondere alle richieste e organizzare gli appuntamenti, sulla base del legittimo interesse a fornire il servizio richiesto.',
+      },
+      {
+        titolo: 'Conservazione',
+        testo:
+          'I dati vengono conservati per il tempo strettamente necessario a gestire la richiesta e successivamente cancellati, salvo obblighi di legge.',
+      },
+      {
+        titolo: 'Diritti dell’interessato',
+        testo:
+          'Puoi in ogni momento chiedere l’accesso, la rettifica o la cancellazione dei tuoi dati, oppure opporti al trattamento, scrivendo ai recapiti indicati sopra.',
+      },
+    ],
+  },
+  cookie: {
+    titolo: 'Cookie Policy',
+    aggiornamento: 'Ultimo aggiornamento: gennaio 2025',
+    seo: {
+      titolo: "Cookie Policy — L'angolo di Nadia",
+      descrizione:
+        "Informativa sull'uso dei cookie del sito di L'angolo di Nadia.",
+    },
+    sezioni: [
+      {
+        titolo: 'Cosa sono i cookie',
+        testo:
+          'I cookie sono piccoli file di testo che i siti salvano sul dispositivo durante la navigazione, per farlo funzionare o per raccogliere informazioni.',
+      },
+      {
+        titolo: 'Cookie utilizzati da questo sito',
+        testo:
+          'Questo sito non utilizza cookie di profilazione. La mappa incorporata (Google Maps) potrebbe installare cookie tecnici e di terze parti quando viene caricata: in quel caso si applicano le informative del rispettivo fornitore.',
+      },
+      {
+        titolo: 'Gestione dei cookie',
+        testo:
+          'Puoi gestire o disabilitare i cookie dalle impostazioni del tuo browser. La disattivazione di alcuni cookie potrebbe limitare la visualizzazione della mappa.',
+      },
+    ],
+  },
 }
 
 // --- Striscia "anteprima" ---------------------------------------------------

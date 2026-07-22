@@ -1,33 +1,52 @@
-// Shell dell'applicazione: striscia demo, header sticky, contenuto e barra
-// mobile fissa. Le sezioni della one-page e le pagine legali (Privacy, Cookie)
-// vengono aggiunte nei passi successivi.
+// Shell dell'applicazione: striscia demo, header, contenuto (one-page + pagine
+// legali) e barra mobile fissa. Il layout è condiviso da tutte le route.
 
+import { useEffect } from 'react'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import DemoBanner from './components/DemoBanner.jsx'
 import Header from './components/Header.jsx'
+import Footer from './components/Footer.jsx'
 import MobileBar from './components/MobileBar.jsx'
-import Hero from './sections/Hero.jsx'
-import Servizi from './sections/Servizi.jsx'
-import ChiSono from './sections/ChiSono.jsx'
-import Gallery from './sections/Gallery.jsx'
-import Recensioni from './sections/Recensioni.jsx'
-import Contatti from './sections/Contatti.jsx'
+import Home from './pages/Home.jsx'
+import Privacy from './pages/Privacy.jsx'
+import Cookie from './pages/Cookie.jsx'
 import { flags } from './data/content.js'
+
+// Al cambio di route porta in cima; se c'è un'ancora scorre fino ad essa.
+function GestioneScroll() {
+  const { pathname, hash } = useLocation()
+  useEffect(() => {
+    if (hash) {
+      const el = document.querySelector(hash)
+      if (el) {
+        el.scrollIntoView()
+        return
+      }
+    }
+    window.scrollTo(0, 0)
+  }, [pathname, hash])
+  return null
+}
 
 function App() {
   return (
     <>
       {flags.anteprima && <DemoBanner />}
       <Header />
+      <GestioneScroll />
 
-      {/* pb-24 su mobile per non finire sotto la barra fissa in basso */}
-      <main className="pb-24 md:pb-0">
-        <Hero />
-        <Servizi />
-        <ChiSono />
-        <Gallery />
-        <Recensioni />
-        <Contatti />
-      </main>
+      {/* pb-20 su mobile per non finire sotto la barra fissa in basso */}
+      <div className="pb-20 md:pb-0">
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/cookie" element={<Cookie />} />
+            <Route path="*" element={<Home />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
 
       <MobileBar />
     </>
