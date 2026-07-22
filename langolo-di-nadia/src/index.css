@@ -210,16 +210,20 @@ h3 {
    ruota attorno al proprio centro. Selettori ancorati a .logo-hero per non
    toccare i loghi di header e footer (che condividono gli stessi id). */
 .logo-hero #simbolo {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation:
-    hero-simbolo-in 1100ms var(--ease-premium) both,
-    hero-simbolo-respiro 6.5s ease-in-out 1500ms infinite;
+  transform-box: view-box;
+  transform-origin: 801px 278px;
+  animation: hero-simbolo-in 1100ms var(--ease-premium) both;
 }
 .logo-hero #testo {
-  transform-box: fill-box;
-  transform-origin: center;
   animation: hero-testo-in 1100ms var(--ease-premium) 420ms both;
+}
+
+/* Battito del SOLO cuore: sovrapposizione ritagliata #cuore, ritmo "lub-dub".
+   Tutti i valori sono >= 1 così la base del cuore non spunta mai da sotto. */
+.logo-hero #cuore {
+  transform-box: view-box;
+  transform-origin: 883px 187px;
+  animation: hero-cuore-battito 2.6s ease-in-out 1600ms infinite;
 }
 
 @keyframes hero-simbolo-in {
@@ -233,14 +237,20 @@ h3 {
   }
 }
 
-/* Respiro lentissimo del simbolo (eco del "battito") */
-@keyframes hero-simbolo-respiro {
+@keyframes hero-cuore-battito {
   0%,
+  60%,
   100% {
     transform: scale(1);
   }
-  50% {
-    transform: scale(1.035);
+  15% {
+    transform: scale(1.12);
+  }
+  30% {
+    transform: scale(1.03);
+  }
+  45% {
+    transform: scale(1.09);
   }
 }
 
@@ -270,17 +280,89 @@ h3 {
   }
 }
 
-/* Ken burns lentissimo sullo sfondo dell'hero */
-.hero-bg {
-  animation: hero-kenburns 24s ease-out both;
+/* Sfondo "aurora": sfumatura in movimento con i colori del brand.
+   Blob sfocati che derivano lentamente (solo transform). Il fondo resta molto
+   scuro e una vignette centrale scurisce dietro al logo per farlo risaltare. */
+.hero-aurora {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #0d0d0d;
 }
-@keyframes hero-kenburns {
+.hero-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(72px);
+  will-change: transform;
+}
+.hero-blob--1 {
+  width: 60vw;
+  height: 60vw;
+  left: -12vw;
+  top: -16vw;
+  background: #ff008e;
+  opacity: 0.5;
+  animation: hero-blob-1 22s ease-in-out infinite alternate;
+}
+.hero-blob--2 {
+  width: 55vw;
+  height: 55vw;
+  right: -14vw;
+  top: 6vh;
+  background: #d60077;
+  opacity: 0.55;
+  animation: hero-blob-2 27s ease-in-out infinite alternate;
+}
+.hero-blob--3 {
+  width: 48vw;
+  height: 48vw;
+  left: 22vw;
+  bottom: -22vw;
+  background: #ff008e;
+  opacity: 0.38;
+  animation: hero-blob-3 31s ease-in-out infinite alternate;
+}
+@keyframes hero-blob-1 {
   from {
-    transform: scale(1.06);
+    transform: translate(0, 0) scale(1);
   }
   to {
-    transform: scale(1.16);
+    transform: translate(14vw, 10vh) scale(1.18);
   }
+}
+@keyframes hero-blob-2 {
+  from {
+    transform: translate(0, 0) scale(1.1);
+  }
+  to {
+    transform: translate(-12vw, 12vh) scale(1);
+  }
+}
+@keyframes hero-blob-3 {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(10vw, -14vh) scale(1.2);
+  }
+}
+/* Vignette: scurisce il centro (dietro al logo) e i bordi, calmando i blob */
+.hero-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      58% 52% at 50% 44%,
+      rgba(13, 13, 13, 0.72) 0%,
+      rgba(13, 13, 13, 0.25) 46%,
+      rgba(13, 13, 13, 0) 72%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(13, 13, 13, 0.55) 0%,
+      rgba(13, 13, 13, 0) 30%,
+      rgba(13, 13, 13, 0.65) 100%
+    );
 }
 
 /* Indicatore "scorri" con rimbalzo tenue */
@@ -320,9 +402,12 @@ h3 {
   }
   .logo-hero #simbolo,
   .logo-hero #testo,
+  .logo-hero #cuore,
   .hero-testo,
-  .hero-bg,
-  .hero-cue {
+  .hero-cue,
+  .hero-blob--1,
+  .hero-blob--2,
+  .hero-blob--3 {
     animation: none !important;
   }
   .rivela {

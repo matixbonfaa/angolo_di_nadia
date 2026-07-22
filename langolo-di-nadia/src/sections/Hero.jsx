@@ -16,23 +16,22 @@ function Hero() {
       id="top"
       className="relative isolate flex min-h-[92svh] items-center overflow-hidden bg-nero text-bianco"
     >
-      {/* Sfondo con velo scuro per il contrasto */}
-      <img
-        src={hero.immagine}
-        alt=""
-        width={1600}
-        height={1000}
-        fetchPriority="high"
-        className="hero-bg absolute inset-0 -z-10 h-full w-full object-cover opacity-55"
-      />
-      <div className="absolute inset-0 -z-10 bg-nero/70" aria-hidden="true" />
+      {/* Sfondo: aurora animata (sfumatura in movimento) coi colori del brand */}
+      <div className="absolute inset-0 -z-10" aria-hidden="true">
+        <div className="hero-aurora">
+          <div className="hero-blob hero-blob--1" />
+          <div className="hero-blob hero-blob--2" />
+          <div className="hero-blob hero-blob--3" />
+        </div>
+        <div className="hero-vignette" />
+      </div>
 
       <div className="mx-auto flex max-w-4xl flex-col items-center gap-10 px-6 py-24 text-center">
         {/* Logo completo, protagonista */}
         <Logo
           variant="full"
           title={attivita.nome}
-          className="logo-hero h-36 w-auto text-bianco sm:h-52 lg:h-64"
+          className="logo-hero h-44 w-auto text-bianco sm:h-64 lg:h-80"
         />
 
         {/* Claim e sottotitolo */}
