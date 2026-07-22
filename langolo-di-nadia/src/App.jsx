@@ -9,6 +9,7 @@ import Hero from './sections/Hero.jsx'
 import Servizi from './sections/Servizi.jsx'
 import ChiSono from './sections/ChiSono.jsx'
 import Gallery from './sections/Gallery.jsx'
+import Recensioni from './sections/Recensioni.jsx'
 import { flags } from './data/content.js'
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Servizi />
         <ChiSono />
         <Gallery />
+        <Recensioni />
       </main>
 
       <MobileBar />

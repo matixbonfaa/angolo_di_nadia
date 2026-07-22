@@ -200,6 +200,7 @@ export const gallery = [
 export const recensioniIntro = {
   titolo: 'Dicono di noi',
   sottotitolo: 'Le parole di chi si affida a Nadia.',
+  linkLabel: 'Leggi tutte le recensioni su Google',
 }
 export const recensioni = [
   {
