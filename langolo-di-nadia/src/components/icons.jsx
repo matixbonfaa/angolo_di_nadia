@@ -92,6 +92,22 @@ export function IconaFacebook({ size = 20 }) {
   )
 }
 
+export function IconaFrecciaSx({ size = 28 }) {
+  return (
+    <svg {...base(size)}>
+      <path d="M15 5l-7 7 7 7" />
+    </svg>
+  )
+}
+
+export function IconaFrecciaDx({ size = 28 }) {
+  return (
+    <svg {...base(size)}>
+      <path d="M9 5l7 7-7 7" />
+    </svg>
+  )
+}
+
 export function IconaLuogo({ size = 20 }) {
   return (
     <svg {...base(size)}>

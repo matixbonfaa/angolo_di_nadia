@@ -8,6 +8,7 @@ import MobileBar from './components/MobileBar.jsx'
 import Hero from './sections/Hero.jsx'
 import Servizi from './sections/Servizi.jsx'
 import ChiSono from './sections/ChiSono.jsx'
+import Gallery from './sections/Gallery.jsx'
 import { flags } from './data/content.js'
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Hero />
         <Servizi />
         <ChiSono />
+        <Gallery />
       </main>
 
       <MobileBar />
