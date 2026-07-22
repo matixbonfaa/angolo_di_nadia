@@ -8,7 +8,7 @@ function ReviewCard({ recensione }) {
   const { autore, stelle, testo, data } = recensione
 
   return (
-    <figure className="flex h-full flex-col gap-4 rounded-[4px] border border-grigio-chiaro bg-bianco p-6">
+    <figure className="flex h-full flex-col gap-4 rounded-[4px] border border-grigio-chiaro bg-bianco p-6 transition-[transform,border-color] duration-200 ease-out hover:-translate-y-1 hover:border-fucsia">
       <div
         role="img"
         aria-label={`Valutazione: ${stelle} stelle su 5`}

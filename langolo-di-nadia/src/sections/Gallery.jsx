@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Section from '../components/Section.jsx'
 import Lightbox from '../components/Lightbox.jsx'
+import Rivela from '../components/Rivela.jsx'
 import { galleryIntro, gallery } from '../data/content.js'
 
 function Gallery() {
@@ -21,7 +22,7 @@ function Gallery() {
     >
       <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
         {gallery.map((img, i) => (
-          <li key={img.src}>
+          <Rivela as="li" key={img.src} delay={(i % 3) * 80}>
             <button
               type="button"
               onClick={() => apri(i)}
@@ -34,10 +35,10 @@ function Gallery() {
                 width={img.larghezza}
                 height={img.altezza}
                 loading="lazy"
-                className="aspect-[4/5] w-full object-cover transition-transform duration-200 ease-out group-hover:scale-105"
+                className="aspect-[4/5] w-full object-cover transition-transform duration-300 ease-out group-hover:scale-105"
               />
             </button>
-          </li>
+          </Rivela>
         ))}
       </ul>
 

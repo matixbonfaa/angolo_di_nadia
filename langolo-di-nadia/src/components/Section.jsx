@@ -2,6 +2,8 @@
 // Standardizza spaziatura, larghezza e intestazione (h2 + sottotitolo),
 // mantenendo una gerarchia dei titoli coerente su tutta la pagina.
 //
+import Rivela from './Rivela.jsx'
+
 // props:
 //   id:         ancora della sezione (es. "servizi")
 //   titolo:     titolo della sezione (h2)
@@ -25,14 +27,14 @@ function Section({
     <section id={id} className={bg}>
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
         {(titolo || sottotitolo) && (
-          <header className={`max-w-2xl ${allineamento}`}>
+          <Rivela as="header" className={`max-w-2xl ${allineamento}`}>
             {titolo && (
               <h2 className="font-serif text-h2 text-nero">{titolo}</h2>
             )}
             {sottotitolo && (
               <p className="mt-3 text-lg text-grigio">{sottotitolo}</p>
             )}
-          </header>
+          </Rivela>
         )}
         <div className="mt-10 sm:mt-12">{children}</div>
       </div>

@@ -3,6 +3,7 @@
 
 import Section from '../components/Section.jsx'
 import Button from '../components/Button.jsx'
+import Rivela from '../components/Rivela.jsx'
 import {
   IconaLuogo,
   IconaTelefono,
@@ -26,7 +27,7 @@ function Contatti() {
     >
       <div className="grid gap-10 md:grid-cols-2 md:gap-14">
         {/* Colonna informazioni */}
-        <div className="space-y-8">
+        <Rivela className="space-y-8">
           {/* Indirizzo */}
           <div>
             <h3 className="font-serif text-h3 text-nero">Dove siamo</h3>
@@ -104,10 +105,10 @@ function Contatti() {
               ))}
             </ul>
           </div>
-        </div>
+        </Rivela>
 
         {/* Colonna mappa */}
-        <div>
+        <Rivela delay={120}>
           <iframe
             title="Mappa: posizione del salone a Meano, Trento"
             src={attivita.mappaEmbedUrl}
@@ -115,7 +116,7 @@ function Contatti() {
             referrerPolicy="no-referrer-when-downgrade"
             className="h-full min-h-[340px] w-full rounded-[4px] border border-grigio-chiaro"
           />
-        </div>
+        </Rivela>
       </div>
     </Section>
   )

@@ -2,6 +2,7 @@
 
 import Section from '../components/Section.jsx'
 import ServiceCard from '../components/ServiceCard.jsx'
+import Rivela from '../components/Rivela.jsx'
 import { serviziIntro, servizi } from '../data/content.js'
 
 function Servizi() {
@@ -12,10 +13,10 @@ function Servizi() {
       sottotitolo={serviziIntro.sottotitolo}
     >
       <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        {servizi.map((servizio) => (
-          <li key={servizio.nome} className="h-full">
+        {servizi.map((servizio, i) => (
+          <Rivela as="li" key={servizio.nome} delay={(i % 2) * 90} className="h-full">
             <ServiceCard servizio={servizio} />
-          </li>
+          </Rivela>
         ))}
       </ul>
     </Section>

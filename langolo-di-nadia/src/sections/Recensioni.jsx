@@ -3,6 +3,7 @@
 import Section from '../components/Section.jsx'
 import ReviewCard from '../components/ReviewCard.jsx'
 import Button from '../components/Button.jsx'
+import Rivela from '../components/Rivela.jsx'
 import { recensioniIntro, recensioni, attivita } from '../data/content.js'
 
 function Recensioni() {
@@ -14,10 +15,10 @@ function Recensioni() {
       sottotitolo={recensioniIntro.sottotitolo}
     >
       <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        {recensioni.map((recensione) => (
-          <li key={recensione.autore} className="h-full">
+        {recensioni.map((recensione, i) => (
+          <Rivela as="li" key={recensione.autore} delay={(i % 2) * 90} className="h-full">
             <ReviewCard recensione={recensione} />
-          </li>
+          </Rivela>
         ))}
       </ul>
 

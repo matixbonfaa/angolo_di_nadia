@@ -108,6 +108,14 @@ export function IconaFrecciaDx({ size = 28 }) {
   )
 }
 
+export function IconaFrecciaGiu({ size = 24 }) {
+  return (
+    <svg {...base(size)}>
+      <path d="M12 5v14M5 12l7 7 7-7" />
+    </svg>
+  )
+}
+
 export function IconaLuogo({ size = 20 }) {
   return (
     <svg {...base(size)}>

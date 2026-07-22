@@ -3,7 +3,9 @@
 //
 // props:
 //   variant: "full" (testo + simbolo) | "mark" (solo forbici+cuore)
-//   size:    altezza in px (la larghezza segue le proporzioni del viewBox)
+//   size:    altezza in px (la larghezza segue le proporzioni del viewBox).
+//            Se omesso, l'altezza si controlla via className (es. h-32 sm:h-48)
+//            per un logo responsive.
 //   title:   se presente, dà un nome accessibile al logo (role="img");
 //            se assente, il logo è decorativo (aria-hidden).
 //
@@ -30,14 +32,16 @@ const sorgenti = {
   mark: sanifica(logoMark),
 }
 
-function Logo({ variant = 'full', size = 40, title, className = '' }) {
+function Logo({ variant = 'full', size, title, className = '' }) {
   const svg = sorgenti[variant] ?? sorgenti.full
   const etichettato = Boolean(title)
+  // Altezza fissa solo se size è un numero; altrimenti la gestisce className.
+  const style = typeof size === 'number' ? { height: `${size}px` } : undefined
 
   return (
     <span
       className={`logo logo--${variant} ${className}`}
-      style={{ height: `${size}px` }}
+      style={style}
       role={etichettato ? 'img' : undefined}
       aria-label={etichettato ? title : undefined}
       aria-hidden={etichettato ? undefined : true}

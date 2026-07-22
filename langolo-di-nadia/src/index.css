@@ -195,22 +195,59 @@ h3 {
   display: block;
 }
 
-/* ---- Animazioni (solo transform/opacity) ------------------------------- */
-@keyframes nadia-simbolo-entra {
+/* ==========================================================================
+   Animazioni premium — solo transform/opacity, easing "expo-out".
+   Tutto si disattiva con prefers-reduced-motion.
+   ========================================================================== */
+
+/* Curva d'ingresso elegante riutilizzata ovunque */
+:root {
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---- Hero: rivelazione del logo per gruppi (scoped a .logo-hero) -------- */
+/* transform-box: fill-box → l'origine è il box del gruppo SVG, così scala e
+   ruota attorno al proprio centro. Selettori ancorati a .logo-hero per non
+   toccare i loghi di header e footer (che condividono gli stessi id). */
+.logo-hero #simbolo {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation:
+    hero-simbolo-in 1100ms var(--ease-premium) both,
+    hero-simbolo-respiro 6.5s ease-in-out 1500ms infinite;
+}
+.logo-hero #testo {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hero-testo-in 1100ms var(--ease-premium) 420ms both;
+}
+
+@keyframes hero-simbolo-in {
   from {
     opacity: 0;
-    transform: rotate(-8deg) scale(0.9);
+    transform: scale(0.45) rotate(-16deg);
   }
   to {
     opacity: 1;
-    transform: rotate(0) scale(1);
+    transform: scale(1) rotate(0);
   }
 }
 
-@keyframes nadia-fade-su {
+/* Respiro lentissimo del simbolo (eco del "battito") */
+@keyframes hero-simbolo-respiro {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.035);
+  }
+}
+
+@keyframes hero-testo-in {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(22px);
   }
   to {
     opacity: 1;
@@ -218,44 +255,85 @@ h3 {
   }
 }
 
-/* Battito del cuore: molto lento e appena percettibile */
-@keyframes nadia-battito {
+/* Blocco testo dell'hero (claim + sottotitolo) in fade dopo il logo */
+.hero-testo {
+  animation: hero-blocco-in 1000ms var(--ease-premium) 780ms both;
+}
+@keyframes hero-blocco-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Ken burns lentissimo sullo sfondo dell'hero */
+.hero-bg {
+  animation: hero-kenburns 24s ease-out both;
+}
+@keyframes hero-kenburns {
+  from {
+    transform: scale(1.06);
+  }
+  to {
+    transform: scale(1.16);
+  }
+}
+
+/* Indicatore "scorri" con rimbalzo tenue */
+.hero-cue {
+  animation: hero-cue 2.2s ease-in-out 1700ms infinite;
+}
+@keyframes hero-cue {
   0%,
   100% {
-    transform: scale(1);
+    opacity: 0.55;
+    transform: translateY(0);
   }
   50% {
-    transform: scale(1.045);
+    opacity: 1;
+    transform: translateY(7px);
   }
 }
 
-.anim-simbolo {
-  animation: nadia-simbolo-entra 700ms ease-out both;
+/* ---- Reveal on scroll (componente Rivela) ------------------------------ */
+.rivela {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.8s var(--ease-premium),
+    transform 0.8s var(--ease-premium);
+  will-change: opacity, transform;
+}
+.rivela.in-vista {
+  opacity: 1;
+  transform: none;
 }
 
-.anim-fade {
-  animation: nadia-fade-su 600ms ease-out both;
-  animation-delay: 450ms;
-}
-
-.anim-battito {
-  transform-origin: center;
-  animation: nadia-battito 4.5s ease-in-out 1.2s infinite;
-}
-
-/* Rispetto assoluto delle preferenze di movimento ridotto */
+/* ---- Rispetto assoluto delle preferenze di movimento ridotto ----------- */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-  .anim-simbolo,
-  .anim-fade,
-  .anim-battito {
+  .logo-hero #simbolo,
+  .logo-hero #testo,
+  .hero-testo,
+  .hero-bg,
+  .hero-cue {
     animation: none !important;
+  }
+  .rivela {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
   *,
   *::before,
   *::after {
+    animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
 }

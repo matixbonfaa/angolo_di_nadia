@@ -37,7 +37,8 @@ function Button({
 }) {
   const classi = [
     'inline-flex items-center justify-center rounded-[4px]',
-    'transition-colors duration-150 ease-out',
+    'transition-[color,background-color,border-color,transform] duration-200 ease-out',
+    'hover:-translate-y-0.5 active:translate-y-0',
     'focus-visible:outline-2 focus-visible:outline-offset-2',
     'leading-none whitespace-nowrap',
     varianti[variant] ?? varianti.primaria,
