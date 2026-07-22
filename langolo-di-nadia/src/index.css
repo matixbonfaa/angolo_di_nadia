@@ -183,6 +183,18 @@ h3 {
   scroll-margin-top: 5rem;
 }
 
+/* Logo inline: l'SVG riempie l'altezza del contenitore, larghezza automatica */
+.logo {
+  display: inline-flex;
+  line-height: 0;
+  color: inherit;
+}
+.logo svg {
+  height: 100%;
+  width: auto;
+  display: block;
+}
+
 /* ---- Animazioni (solo transform/opacity) ------------------------------- */
 @keyframes nadia-simbolo-entra {
   from {
