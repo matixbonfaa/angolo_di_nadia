@@ -10,6 +10,7 @@ import Servizi from './sections/Servizi.jsx'
 import ChiSono from './sections/ChiSono.jsx'
 import Gallery from './sections/Gallery.jsx'
 import Recensioni from './sections/Recensioni.jsx'
+import Contatti from './sections/Contatti.jsx'
 import { flags } from './data/content.js'
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <ChiSono />
         <Gallery />
         <Recensioni />
+        <Contatti />
       </main>
 
       <MobileBar />
