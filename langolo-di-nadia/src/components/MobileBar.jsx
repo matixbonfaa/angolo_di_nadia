@@ -7,8 +7,12 @@ import { attivita, cta } from '../data/content.js'
 import { buildWhatsAppUrl, buildTelUrl } from '../lib/links.js'
 
 function MobileBar() {
-  const linkWhatsapp = buildWhatsAppUrl(attivita.whatsappNumero, cta.messaggioWhatsapp)
-  const linkTelefono = buildTelUrl(attivita.telefonoTel)
+  const haTelefono = Boolean(attivita.telefonoTel)
+  const haWhatsapp = Boolean(attivita.whatsappNumero)
+  const linkWhatsapp = haWhatsapp
+    ? buildWhatsAppUrl(attivita.whatsappNumero, cta.messaggioWhatsapp)
+    : undefined
+  const linkTelefono = haTelefono ? buildTelUrl(attivita.telefonoTel) : undefined
 
   return (
     <div
@@ -21,6 +25,7 @@ function MobileBar() {
         size="md"
         icona={<IconaTelefono size={18} />}
         className="w-full"
+        disabilitato={!haTelefono}
       >
         {cta.chiama}
       </Button>
@@ -31,6 +36,7 @@ function MobileBar() {
         size="md"
         icona={<IconaWhatsapp size={18} />}
         className="w-full"
+        disabilitato={!haWhatsapp}
       >
         {cta.whatsappBreve}
       </Button>

@@ -1,7 +1,7 @@
 // JsonLd — dati strutturati schema.org/HairSalon per la home.
 // I valori arrivano da content.js (placeholder pronti da compilare).
 
-import { attivita, seo } from '../data/content.js'
+import { attivita, seo, recensioniAggregato } from '../data/content.js'
 import { assetAssoluto } from '../lib/asset.js'
 
 // Giorni in ordine Lun..Dom, coerente con attivita.orari, verso schema.org.
@@ -39,14 +39,15 @@ function JsonLd() {
     name: attivita.nome,
     image: assetAssoluto(seo.ogImage),
     url: seo.urlSito,
-    telephone: attivita.telefonoTel,
+    // telephone incluso solo quando il numero è disponibile.
+    ...(attivita.telefonoTel ? { telephone: attivita.telefonoTel } : {}),
     email: attivita.email,
     priceRange: '€€',
     currenciesAccepted: 'EUR',
     address: {
       '@type': 'PostalAddress',
       streetAddress: attivita.indirizzo.via,
-      addressLocality: `${attivita.indirizzo.frazione}, ${attivita.indirizzo.citta}`,
+      addressLocality: attivita.indirizzo.frazione,
       postalCode: attivita.indirizzo.cap,
       addressRegion: attivita.indirizzo.provincia,
       addressCountry: 'IT',
@@ -57,7 +58,14 @@ function JsonLd() {
       longitude: attivita.geo.lng,
     },
     openingHoursSpecification: orariSpecification(),
-    sameAs: [attivita.social.instagram, attivita.social.facebook],
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: recensioniAggregato.valutazione,
+      reviewCount: recensioniAggregato.conteggio,
+      bestRating: 5,
+      worstRating: 1,
+    },
+    sameAs: [attivita.googleReviewsUrl],
   }
 
   return (

@@ -17,7 +17,7 @@ const varianti = {
   secondaria:
     'bg-transparent text-nero font-medium border border-nero hover:bg-nero hover:text-bianco',
   chiara:
-    'bg-transparent text-bianco font-medium border border-bianco/70 hover:bg-bianco hover:text-nero',
+    'bg-transparent text-bianco/85 font-medium border border-bianco/30 hover:border-bianco hover:bg-bianco hover:text-nero',
 }
 
 const misure = {
@@ -33,14 +33,19 @@ function Button({
   icona,
   children,
   className = '',
+  // Segnaposto non cliccabile: usato quando manca ancora il numero di telefono
+  // o WhatsApp. Mantiene la composizione ma disattiva l'azione.
+  disabilitato = false,
   ...rest
 }) {
   const classi = [
     'inline-flex items-center justify-center rounded-[4px]',
     'transition-[color,background-color,border-color,transform] duration-200 ease-out',
-    'hover:-translate-y-0.5 active:translate-y-0',
     'focus-visible:outline-2 focus-visible:outline-offset-2',
     'leading-none whitespace-nowrap',
+    disabilitato
+      ? 'cursor-not-allowed opacity-45'
+      : 'hover:-translate-y-0.5 active:translate-y-0',
     varianti[variant] ?? varianti.primaria,
     misure[size] ?? misure.md,
     className,
@@ -52,6 +57,23 @@ function Button({
       <span>{children}</span>
     </>
   )
+
+  // Segnaposto: <button disabled> (niente navigazione), etichetta di stato per
+  // gli screen reader.
+  if (disabilitato) {
+    return (
+      <button
+        type="button"
+        className={classi}
+        disabled
+        aria-disabled="true"
+        title="Presto disponibile"
+        {...rest}
+      >
+        {contenuto}
+      </button>
+    )
+  }
 
   if (href) {
     const attrs = external

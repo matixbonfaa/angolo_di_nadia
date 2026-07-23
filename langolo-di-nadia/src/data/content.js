@@ -22,30 +22,37 @@ export const flags = {
 export const attivita = {
   nome: "L'angolo di Nadia",
   professione: 'Parrucchiere',
-  // Numero unico per telefono e WhatsApp (FITTIZIO).
+  // Numero unico per telefono e WhatsApp. DA INSERIRE: lasciato vuoto finché non
+  // arriva il numero definitivo. Finché questi campi sono vuoti, i pulsanti
+  // Chiama/WhatsApp restano visibili ma disattivati (segnaposto) e il JSON-LD
+  // omette il telefono. Basta ricompilarli per riattivare tutto.
   // telefonoDisplay: come appare a schermo. telefonoTel: formato per tel:.
   // whatsappNumero: solo cifre con prefisso internazionale, per i link wa.me.
-  telefonoDisplay: '+39 351 218 4460',
-  telefonoTel: '+393512184460',
-  whatsappNumero: '393512184460',
+  telefonoDisplay: '',
+  telefonoTel: '',
+  whatsappNumero: '',
   email: 'info@langolodinadia.it',
-  // Indirizzo (FITTIZIO) — Meano è una frazione a nord di Trento, CAP 38121.
+  // Indirizzo reale — Vigo Meano è una frazione a nord di Trento, CAP 38121.
   indirizzo: {
-    via: 'Via di Meano, 128',
+    via: 'Via don Emilio Perugini, 8',
     cap: '38121',
     citta: 'Trento',
-    frazione: 'Meano',
+    frazione: 'Vigo Meano',
     provincia: 'TN',
     // Testo pronto da mostrare su una riga.
-    completo: 'Via di Meano, 128 — 38121 Meano (Trento)',
+    completo: 'Via don Emilio Perugini, 8 — 38121 Vigo Meano (TN)',
   },
-  // Coordinate approssimative di Meano (TN) per la mappa.
-  geo: { lat: 46.1215, lng: 11.1085 },
-  // Mappa incorporabile senza chiave API (Google Maps "output=embed").
-  mappaEmbedUrl:
-    'https://www.google.com/maps?q=Meano%2C%20Trento&z=14&output=embed',
-  // Link "Apri in mappe" per il pulsante esterno.
-  mappaLinkUrl: 'https://www.google.com/maps/search/?api=1&query=Meano%2C+Trento',
+  // Coordinate reali del salone (per la mappa Leaflet e il JSON-LD).
+  geo: { lat: 46.132566, lng: 11.134598 },
+  // Zoom iniziale della mappa.
+  mappaZoom: 16,
+  // URL "universali" di Google Maps: aprono l'app nativa su mobile.
+  // Apri in Google Maps (scheda del luogo, per coordinate).
+  mappaLinkUrl:
+    'https://www.google.com/maps/search/?api=1&query=46.132566%2C11.134598',
+  // Indicazioni stradali verso il salone.
+  mappaIndicazioniUrl:
+    'https://www.google.com/maps/dir/?api=1&destination=46.132566%2C11.134598',
   // Orari di apertura. giorno + fasce; "Chiuso" quando chiuso.
   // Ordine da lunedì a domenica (usato anche nel JSON-LD).
   orari: [
@@ -65,8 +72,16 @@ export const attivita = {
     instagram: 'https://www.instagram.com/langolodinadia',
     facebook: 'https://www.facebook.com/langolodinadia',
   },
-  // Link alle recensioni Google (PLACEHOLDER — inserire l'URL reale del profilo).
-  googleReviewsUrl: 'https://www.google.com/maps/search/L%27angolo+di+Nadia+Meano+Trento',
+  // Link al profilo Google del salone (recensioni e scheda).
+  googleReviewsUrl: 'https://share.google/pGYq9Da3xAYt5wSuB',
+}
+
+// Dato aggregato delle recensioni Google (inserito a mano: niente API).
+// valutazioneLabel usa la virgola come separatore decimale (formato italiano).
+export const recensioniAggregato = {
+  valutazione: 5.0, // per JSON-LD (numero)
+  valutazioneLabel: '5,0',
+  conteggio: 5,
 }
 
 // --- Etichette delle azioni (CTA) e messaggio WhatsApp precompilato ---------
@@ -90,12 +105,11 @@ export const navigazione = [
 
 // --- Sezione Hero -----------------------------------------------------------
 export const hero = {
-  // Sopratitolo piccolo sopra il claim.
-  sopratitolo: 'Parrucchiere · Meano, Trento',
-  // Claim principale (h1). Tenuto breve ed elegante.
-  claim: 'Il tuo stile, curato nei dettagli',
-  sottotitolo:
-    'Tagli, colore e trattamenti su misura in un salone accogliente alle porte di Trento. Su appuntamento.',
+  // Nell'hero il fuoco visivo è il logo; il claim generico è stato rimosso.
+  // Questo titolo resta come h1 semantico (screen reader, SEO), non a schermo.
+  titoloAccessibile: "L'angolo di Nadia — parrucchiere a Vigo Meano, Trento",
+  // Sottotitolo: una riga sola, corpo piccolo, sotto al logo.
+  sottotitolo: 'Parrucchiere a Vigo Meano, Trento · su appuntamento',
   immagine: '/images/hero.svg',
   immagineAlt: 'Interno luminoso del salone L’angolo di Nadia',
 }
@@ -172,7 +186,7 @@ export const chiSono = {
   titolo: 'Chi sono',
   // Testo in prima persona, tono caldo e professionale.
   paragrafi: [
-    'Mi chiamo Nadia e da oltre quindici anni mi occupo di capelli con la stessa passione del primo giorno. Ho aperto L’angolo di Nadia a Meano per dare vita a uno spazio dove sentirsi a casa, lontano dalla fretta.',
+    'Mi chiamo Nadia e da oltre quindici anni mi occupo di capelli con la stessa passione del primo giorno. Ho aperto L’angolo di Nadia a Vigo Meano per dare vita a uno spazio dove sentirsi a casa, lontano dalla fretta.',
     'Credo in un lavoro fatto di ascolto: prima di prendere in mano le forbici mi siedo con te, capisco cosa desideri e ti consiglio ciò che valorizza davvero i tuoi lineamenti e la tua vita di tutti i giorni.',
     'Mi aggiorno di continuo su tecniche di colore e cura del capello, scegliendo prodotti delicati e rispettosi. Perché un bel risultato non deve mai andare a scapito della salute dei tuoi capelli.',
   ],
@@ -187,49 +201,44 @@ export const galleryIntro = {
   titolo: 'La gallery',
   sottotitolo: 'Alcuni lavori realizzati in salone.',
 }
+// titolo: etichetta breve mostrata in overlay sulla miniatura.
 export const gallery = [
-  { src: '/images/gallery-01.svg', alt: 'Taglio e piega su capelli castani', larghezza: 800, altezza: 1000 },
-  { src: '/images/gallery-02.svg', alt: 'Balayage biondo su base scura', larghezza: 800, altezza: 1000 },
-  { src: '/images/gallery-03.svg', alt: 'Colore rame intenso su capelli lunghi', larghezza: 800, altezza: 1000 },
-  { src: '/images/gallery-04.svg', alt: 'Raccolto elegante per una sposa', larghezza: 800, altezza: 1000 },
-  { src: '/images/gallery-05.svg', alt: 'Piega mossa voluminosa', larghezza: 800, altezza: 1000 },
-  { src: '/images/gallery-06.svg', alt: 'Dettaglio di una schiaritura sfumata', larghezza: 800, altezza: 1000 },
+  { src: '/images/gallery-01.svg', titolo: 'Taglio & piega', alt: 'Taglio e piega su capelli castani', larghezza: 800, altezza: 1000 },
+  { src: '/images/gallery-02.svg', titolo: 'Balayage', alt: 'Balayage biondo su base scura', larghezza: 800, altezza: 1000 },
+  { src: '/images/gallery-03.svg', titolo: 'Colore rame', alt: 'Colore rame intenso su capelli lunghi', larghezza: 800, altezza: 1000 },
+  { src: '/images/gallery-04.svg', titolo: 'Raccolto sposa', alt: 'Raccolto elegante per una sposa', larghezza: 800, altezza: 1000 },
+  { src: '/images/gallery-05.svg', titolo: 'Piega mossa', alt: 'Piega mossa voluminosa', larghezza: 800, altezza: 1000 },
+  { src: '/images/gallery-06.svg', titolo: 'Schiaritura', alt: 'Dettaglio di una schiaritura sfumata', larghezza: 800, altezza: 1000 },
 ]
 
-// --- Recensioni (FITTIZIE) --------------------------------------------------
+// --- Recensioni (Google, inserite a mano) -----------------------------------
+// Il dato aggregato (5,0 · 5 recensioni) sta in `recensioniAggregato` sopra.
+// Qui SOLO le recensioni CON testo: su Google sono 2 su 5 (le altre 3 sono
+// solo stelle e contribuiscono unicamente al conteggio aggregato, quindi non
+// vanno mostrate come card).
+//
+// Struttura: { nome, iniziale, stelle, testo, quando }.
+// PLACEHOLDER: incollare qui i testi veri delle 2 recensioni con testo.
 export const recensioniIntro = {
   titolo: 'Dicono di noi',
   sottotitolo: 'Le parole di chi si affida a Nadia.',
+  aggregatoSuffisso: 'recensioni su Google',
   linkLabel: 'Leggi tutte le recensioni su Google',
 }
 export const recensioni = [
   {
-    autore: 'Giulia Bertolini',
+    nome: 'Nome Cognome', // ← sostituire con l'autore reale
+    iniziale: 'N',
     stelle: 5,
-    testo:
-      'Da Nadia mi sento sempre coccolata. Ha capito subito il colore che cercavo e il balayage è venuto naturale come volevo. Ambiente pulito e rilassante.',
-    data: 'marzo 2025',
+    testo: 'Testo della recensione da incollare.',
+    quando: 'mese 2025',
   },
   {
-    autore: 'Francesca Delvai',
+    nome: 'Nome Cognome', // ← sostituire con l'autore reale
+    iniziale: 'N',
     stelle: 5,
-    testo:
-      'Professionale e attenta ai dettagli. Mi ha consigliato un taglio che non avrei mai osato e ora non tornerei indietro. Consigliatissima.',
-    data: 'febbraio 2025',
-  },
-  {
-    autore: 'Martina Zanella',
-    stelle: 5,
-    testo:
-      'Finalmente una parrucchiera che ascolta davvero. I miei capelli erano rovinati dalla decolorazione e con i suoi trattamenti sono rinati.',
-    data: 'gennaio 2025',
-  },
-  {
-    autore: 'Elena Pedrotti',
-    stelle: 5,
-    testo:
-      'Puntuale, gentile e bravissima. Mi ha fatto il raccolto per il matrimonio di mia sorella ed era perfetto, ha tenuto tutto il giorno.',
-    data: 'dicembre 2024',
+    testo: 'Testo della recensione da incollare.',
+    quando: 'mese 2025',
   },
 ]
 
@@ -240,12 +249,13 @@ export const contattiIntro = {
     'Si lavora su appuntamento, per telefono o WhatsApp. Scrivimi e troviamo insieme l’orario giusto.',
   orariTitolo: 'Orari di apertura',
   mappaLinkLabel: 'Apri in Google Maps',
+  indicazioniLabel: 'Indicazioni stradali',
 }
 
 // --- Footer -----------------------------------------------------------------
 export const footer = {
   // Frase breve sotto il logo.
-  descrizione: 'Parrucchiere a Meano, Trento. Su appuntamento.',
+  descrizione: 'Parrucchiere a Vigo Meano, Trento. Su appuntamento.',
   navTitolo: 'Naviga',
   contattiTitolo: 'Contatti',
   socialTitolo: 'Seguici',
@@ -276,7 +286,7 @@ export const paginelegali = {
       {
         titolo: 'Titolare del trattamento',
         testo:
-          'Il titolare del trattamento dei dati è L’angolo di Nadia, con sede in Via di Meano, 128 — 38121 Meano (Trento). Per qualsiasi richiesta è possibile scrivere a info@langolodinadia.it.',
+          'Il titolare del trattamento dei dati è L’angolo di Nadia, con sede in Via don Emilio Perugini, 8 — 38121 Vigo Meano (TN). Per qualsiasi richiesta è possibile scrivere a info@langolodinadia.it.',
       },
       {
         titolo: 'Dati raccolti',
@@ -335,9 +345,9 @@ export const banner = {
 
 // --- SEO / metadati ---------------------------------------------------------
 export const seo = {
-  titolo: "L'angolo di Nadia — Parrucchiere a Meano, Trento",
+  titolo: "L'angolo di Nadia — Parrucchiere a Vigo Meano, Trento",
   descrizione:
-    'Salone di parrucchiere a Meano (Trento): taglio, colore, balayage e trattamenti su misura. Su appuntamento, per telefono o WhatsApp.',
+    'Salone di parrucchiere a Vigo Meano (Trento): taglio, colore, balayage e trattamenti su misura. Su appuntamento, per telefono o WhatsApp.',
   // Immagine per le anteprime social (Open Graph / Twitter).
   ogImage: '/images/og-image.svg',
   // URL canonico del sito (PLACEHOLDER — inserire il dominio reale).

@@ -114,6 +114,7 @@
   /* Palette brand — fucsia corretto dal logo */
   --color-nero: #0d0d0d;
   --color-bianco: #ffffff;
+  --color-avorio: #f7f3ec; /* avorio caldo appena percettibile per alternare i fondi */
   --color-fucsia: #ff008e;
   --color-fucsia-scuro: #d60077;
   --color-grigio: #6b6b6b;
@@ -177,10 +178,10 @@ h3 {
   border-radius: 2px;
 }
 
-/* Offset per gli ancoraggi sotto l'header sticky */
+/* Offset per gli ancoraggi sotto l'header sticky (~90px) */
 :target,
 [id] {
-  scroll-margin-top: 5rem;
+  scroll-margin-top: 6rem;
 }
 
 /* Logo inline: l'SVG riempie l'altezza del contenitore, larghezza automatica */
@@ -193,6 +194,15 @@ h3 {
   height: 100%;
   width: auto;
   display: block;
+}
+/* Nell'hero il logo è controllato in LARGHEZZA (dominante): l'SVG riempie la
+   larghezza e l'altezza segue le proporzioni del viewBox (nessun layout shift). */
+.logo-hero {
+  width: 100%;
+}
+.logo-hero svg {
+  width: 100%;
+  height: auto;
 }
 
 /* ==========================================================================
@@ -209,27 +219,30 @@ h3 {
 /* transform-box: fill-box → l'origine è il box del gruppo SVG, così scala e
    ruota attorno al proprio centro. Selettori ancorati a .logo-hero per non
    toccare i loghi di header e footer (che condividono gli stessi id). */
+/* Ingresso del simbolo: ~900ms, ease-out, scala morbida senza strappi. */
 .logo-hero #simbolo {
   transform-box: view-box;
   transform-origin: 801px 278px;
-  animation: hero-simbolo-in 1100ms var(--ease-premium) both;
+  animation: hero-simbolo-in 900ms ease-out both;
 }
+/* Fade della scritta: ~700ms, ritardo di 300ms dopo il simbolo. */
 .logo-hero #testo {
-  animation: hero-testo-in 1100ms var(--ease-premium) 420ms both;
+  animation: hero-testo-in 700ms ease-out 300ms both;
 }
 
-/* Battito del SOLO cuore: sovrapposizione ritagliata #cuore, ritmo "lub-dub".
-   Tutti i valori sono >= 1 così la base del cuore non spunta mai da sotto. */
+/* Battito del SOLO cuore: pulsazione VELOCE e continua in loop, ritmo "lub-dub"
+   (doppio colpo + breve pausa) entro ~1.2s. Valori >= 1 così la base del cuore
+   non spunta mai da sotto. Parte dopo l'ingresso del logo. */
 .logo-hero #cuore {
   transform-box: view-box;
   transform-origin: 883px 187px;
-  animation: hero-cuore-battito 2.6s ease-in-out 1600ms infinite;
+  animation: hero-cuore-battito 1.2s ease-in-out 1000ms infinite;
 }
 
 @keyframes hero-simbolo-in {
   from {
     opacity: 0;
-    transform: scale(0.45) rotate(-16deg);
+    transform: scale(0.72) rotate(-6deg);
   }
   to {
     opacity: 1;
@@ -238,19 +251,23 @@ h3 {
 }
 
 @keyframes hero-cuore-battito {
-  0%,
-  60%,
-  100% {
+  0% {
     transform: scale(1);
   }
-  15% {
-    transform: scale(1.12);
+  14% {
+    transform: scale(1.17);
   }
-  30% {
-    transform: scale(1.03);
+  28% {
+    transform: scale(1);
   }
-  45% {
-    transform: scale(1.09);
+  42% {
+    transform: scale(1.11);
+  }
+  56% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 
@@ -265,103 +282,112 @@ h3 {
   }
 }
 
-/* Blocco testo dell'hero (claim + sottotitolo) in fade dopo il logo */
-.hero-testo {
-  animation: hero-blocco-in 1000ms var(--ease-premium) 780ms both;
-}
-@keyframes hero-blocco-in {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+/* Sottotitolo e CTA dell'hero: l'ingresso in fade/stagger è guidato da anime.js
+   (vedi Hero.jsx). Senza JS o con "reduced motion" restano visibili di default. */
 
-/* Sfondo "aurora": sfumatura in movimento con i colori del brand.
-   Blob sfocati che derivano lentamente (solo transform). Il fondo resta molto
-   scuro e una vignette centrale scurisce dietro al logo per farlo risaltare. */
+/* Sfondo dell'hero: base quasi nera e neutra, con il fucsia presente SOLO come
+   alone contenuto e sfumato (mai campitura, ben sotto il 10% della superficie).
+   Ogni alone è un radial-gradient che sfuma a trasparente + blur forte; si
+   animano SOLO in transform (translate/scale) e opacity — mai background o
+   background-position — per non causare repaint. Cicli rapidi e sfasati (13/16/19s)
+   così il movimento è vivo ma il pattern non si ripete in modo evidente. */
 .hero-aurora {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  background: #0d0d0d;
+  background: #0a0a0a;
 }
 .hero-blob {
   position: absolute;
   border-radius: 9999px;
-  filter: blur(72px);
-  will-change: transform;
+  filter: blur(80px);
+  will-change: transform, opacity;
 }
 .hero-blob--1 {
-  width: 60vw;
-  height: 60vw;
-  left: -12vw;
-  top: -16vw;
-  background: #ff008e;
-  opacity: 0.5;
-  animation: hero-blob-1 22s ease-in-out infinite alternate;
+  width: 46vw;
+  height: 46vw;
+  left: -10vw;
+  top: -12vw;
+  background: radial-gradient(
+    circle,
+    rgba(255, 0, 142, 0.44) 0%,
+    rgba(255, 0, 142, 0) 70%
+  );
+  animation: hero-blob-1 13s ease-in-out infinite alternate;
 }
 .hero-blob--2 {
-  width: 55vw;
-  height: 55vw;
-  right: -14vw;
-  top: 6vh;
-  background: #d60077;
-  opacity: 0.55;
-  animation: hero-blob-2 27s ease-in-out infinite alternate;
+  width: 42vw;
+  height: 42vw;
+  right: -12vw;
+  top: 10vh;
+  background: radial-gradient(
+    circle,
+    rgba(255, 0, 142, 0.44) 0%,
+    rgba(255, 0, 142, 0) 70%
+  );
+  animation: hero-blob-2 16s ease-in-out infinite alternate;
 }
 .hero-blob--3 {
-  width: 48vw;
-  height: 48vw;
-  left: 22vw;
-  bottom: -22vw;
-  background: #ff008e;
-  opacity: 0.38;
-  animation: hero-blob-3 31s ease-in-out infinite alternate;
+  width: 40vw;
+  height: 40vw;
+  left: 26vw;
+  bottom: -18vw;
+  background: radial-gradient(
+    circle,
+    rgba(255, 0, 142, 0.44) 0%,
+    rgba(255, 0, 142, 0) 70%
+  );
+  animation: hero-blob-3 19s ease-in-out infinite alternate;
 }
+/* Movimenti più ampi e rapidi (translate ~6-8vw, scala 1↔1.15) con respiro
+   d'opacità: gli aloni derivano in modo vivo ma coerente, stesso fucsia per
+   tutti così il pattern resta omogeneo. */
 @keyframes hero-blob-1 {
   from {
     transform: translate(0, 0) scale(1);
+    opacity: 0.85;
   }
   to {
-    transform: translate(14vw, 10vh) scale(1.18);
+    transform: translate(7vw, 5vh) scale(1.15);
+    opacity: 1;
   }
 }
 @keyframes hero-blob-2 {
   from {
-    transform: translate(0, 0) scale(1.1);
+    transform: translate(0, 0) scale(1.08);
+    opacity: 0.8;
   }
   to {
-    transform: translate(-12vw, 12vh) scale(1);
+    transform: translate(-7vw, 6vh) scale(1);
+    opacity: 1;
   }
 }
 @keyframes hero-blob-3 {
   from {
     transform: translate(0, 0) scale(1);
+    opacity: 0.72;
   }
   to {
-    transform: translate(10vw, -14vh) scale(1.2);
+    transform: translate(8vw, -5vh) scale(1.16);
+    opacity: 0.98;
   }
 }
-/* Vignette: scurisce il centro (dietro al logo) e i bordi, calmando i blob */
+/* Vignette leggera: scurisce solo i bordi e il fondo (contrasto sotto le CTA),
+   lasciando pulito il centro dietro al logo. */
 .hero-vignette {
   position: absolute;
   inset: 0;
   background:
     radial-gradient(
-      58% 52% at 50% 44%,
-      rgba(13, 13, 13, 0.72) 0%,
-      rgba(13, 13, 13, 0.25) 46%,
-      rgba(13, 13, 13, 0) 72%
+      72% 62% at 50% 42%,
+      rgba(10, 10, 10, 0) 55%,
+      rgba(10, 10, 10, 0.55) 100%
     ),
     linear-gradient(
       to bottom,
-      rgba(13, 13, 13, 0.55) 0%,
-      rgba(13, 13, 13, 0) 30%,
-      rgba(13, 13, 13, 0.65) 100%
+      rgba(10, 10, 10, 0.35) 0%,
+      rgba(10, 10, 10, 0) 26%,
+      rgba(10, 10, 10, 0.5) 100%
     );
 }
 
@@ -379,6 +405,106 @@ h3 {
     opacity: 1;
     transform: translateY(7px);
   }
+}
+
+/* ---- Marker personalizzato della mappa (Leaflet divIcon) --------------- */
+/* Il simbolo del logo colorato in fucsia con contorno nero spesso (paint-order:
+   stroke → il tratto sta dietro al riempimento e forma un alone netto) così
+   stacca sulla mappa chiara anche a dimensione piccola. Leggera ombra sotto.
+   overflow visible: il contorno e l'ombra non vengono tagliati dal viewBox. */
+.mappa-marker svg {
+  width: 44px;
+  height: auto;
+  display: block;
+  overflow: visible;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.45));
+}
+.mappa-marker svg path {
+  fill: #ff008e;
+  stroke: #0d0d0d;
+  stroke-width: 5px; /* user unit del viewBox 0-100: contorno netto ma il fucsia resta dominante */
+  stroke-linejoin: round;
+  paint-order: stroke;
+}
+
+/* ==========================================================================
+   Elementi editoriali del redesign: numerazione di sezione, capolettera,
+   firma, watermark del simbolo. Il lusso è tipografico: filetti sottili,
+   scala e asimmetria, niente decori. Nessuna animazione: solo stile statico.
+   ========================================================================== */
+
+/* Numerazione di sezione: cifre grandi, sottili, in OUTLINE (contorno chiaro)
+   così danno struttura senza aggiungere rumore. Variante scura per la sezione
+   su fondo nero. Decorativa: aria-hidden nel markup. */
+.numero-sezione {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  line-height: 0.9;
+  font-size: clamp(2.75rem, 7vw, 4.5rem);
+  letter-spacing: 0.02em;
+  color: transparent;
+  -webkit-text-stroke: 1px #dcdcdc;
+  text-stroke: 1px #dcdcdc;
+}
+.numero-sezione--scuro {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.28);
+  text-stroke: 1px rgba(255, 255, 255, 0.28);
+}
+
+/* Capolettera (drop cap) sul primo paragrafo di "Chi sono". */
+.dropcap::first-letter {
+  float: left;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 3.4em;
+  line-height: 0.72;
+  padding: 0.05em 0.12em 0 0;
+  color: var(--color-nero);
+}
+
+/* Firma manoscritta: corsivo del serif, grande, appena ruotata, in fucsia. */
+.firma {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(2.25rem, 6vw, 3rem);
+  line-height: 1;
+  color: var(--color-fucsia);
+  transform: rotate(-4deg);
+  transform-origin: left center;
+}
+
+/* Watermark: il simbolo del brand molto grande, opacità bassissima, tagliato
+   dal bordo della sezione. La sezione contenitore deve avere overflow-hidden. */
+.watermark-mark {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  width: clamp(320px, 46vw, 560px);
+  opacity: 0.035;
+}
+.watermark-mark svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Divisore tra sezioni: due filetti sottili ai lati del simbolo. */
+.divisore-filetto {
+  height: 1px;
+  width: clamp(2rem, 12vw, 7rem);
+  background: currentColor;
+  opacity: 0.35;
+}
+
+/* Leader punteggiato del menu servizi: collega nome e prezzo sulla stessa
+   linea di base senza box. */
+.menu-leader {
+  flex: 1 1 auto;
+  min-width: 1.5rem;
+  align-self: center;
+  border-bottom: 1px dotted color-mix(in srgb, var(--color-grigio) 55%, transparent);
+  transform: translateY(-0.15em);
 }
 
 /* ---- Reveal on scroll (componente Rivela) ------------------------------ */
@@ -403,7 +529,6 @@ h3 {
   .logo-hero #simbolo,
   .logo-hero #testo,
   .logo-hero #cuore,
-  .hero-testo,
   .hero-cue,
   .hero-blob--1,
   .hero-blob--2,

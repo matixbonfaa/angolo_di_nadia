@@ -10,7 +10,8 @@ import { buildTelUrl } from '../lib/links.js'
 import { asset } from '../lib/asset.js'
 
 function Footer() {
-  const linkTelefono = buildTelUrl(attivita.telefonoTel)
+  const haTelefono = Boolean(attivita.telefonoTel)
+  const linkTelefono = haTelefono ? buildTelUrl(attivita.telefonoTel) : undefined
 
   return (
     <footer className="bg-nero text-bianco">
@@ -49,14 +50,16 @@ function Footer() {
           </p>
           <ul className="mt-3 space-y-2 text-base text-grigio-chiaro">
             <li>{attivita.indirizzo.completo}</li>
-            <li>
-              <a
-                href={linkTelefono}
-                className="text-bianco transition-colors duration-150 hover:text-fucsia"
-              >
-                {attivita.telefonoDisplay}
-              </a>
-            </li>
+            {haTelefono && (
+              <li>
+                <a
+                  href={linkTelefono}
+                  className="text-bianco transition-colors duration-150 hover:text-fucsia"
+                >
+                  {attivita.telefonoDisplay}
+                </a>
+              </li>
+            )}
           </ul>
 
           <p className="mt-5 text-sm uppercase tracking-wide text-grigio">
