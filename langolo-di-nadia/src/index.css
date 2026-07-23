@@ -372,6 +372,33 @@ h3 {
     opacity: 0.98;
   }
 }
+/* Su mobile le misure in vw collassano (46vw ≈ 170px) e con un blur da 80px gli
+   aloni sparivano del tutto: qui li ingrandiamo bene oltre il viewport e
+   riduciamo il blur, così l'aurora fucsia resta ben visibile anche sul telefono. */
+@media (max-width: 640px) {
+  .hero-blob {
+    filter: blur(55px);
+  }
+  .hero-blob--1 {
+    width: 92vw;
+    height: 92vw;
+    left: -26vw;
+    top: -18vw;
+  }
+  .hero-blob--2 {
+    width: 86vw;
+    height: 86vw;
+    right: -30vw;
+    top: 8vh;
+  }
+  .hero-blob--3 {
+    width: 84vw;
+    height: 84vw;
+    left: 6vw;
+    bottom: -30vw;
+  }
+}
+
 /* Vignette leggera: scurisce solo i bordi e il fondo (contrasto sotto le CTA),
    lasciando pulito il centro dietro al logo. */
 .hero-vignette {
